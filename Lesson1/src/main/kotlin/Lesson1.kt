@@ -1,3 +1,5 @@
+import java.math.BigDecimal
+
 val firstName : String = "Masha"
 var lastname = "Ivanova"
 
@@ -87,7 +89,71 @@ const val DEBUG = true
         println(greeting(first = "Masha"  ))
 //        println(greeting(first = "")) // IllegalArgumentException: Write name
 
+        //while
+        var counter = 0;
+        while(counter < 10){
+            println("${counter++}")
+        }
+        //do-while
+//        do {
+//            val command = readLine()
+//            println("command: $command")
+//        } while (command != "quit")
+
+        val oneToFive = 1..5
+        val letters   = 'a'..'z'
+        val words     = "Java".."Yaml"
+
+        if ('d' in letters){
+        }
+        if("Kotlin" in words){
+        }
+
+        //for
+        for(letter in letters){
+            println(letter)
+        }
+
+//        println(japaneseSalary(-BigDecimal.TEN, 10))
+
+        //array
+
+//        val array : Array<Int> = arrayOf<Int>(1, 2, 3, 4)
+        val array = arrayOf(1, 2, 3, 4)
+//        array = arrayOf(5)
+        array[2] = 25
+
+        val list = listOf("One", "Two", "Three") //immutable
+        val mutableList = mutableListOf("One", "Two", "Thee")
+        mutableList[0] = "ONE"
+        mutableList.add("Four")
+
+        //pair
+
+        val pair = Pair("One", "Two")
+        println("first: ${pair.first} second: ${pair.second}")
+
+        val infixPair = 1 to "One"
+
+        val map = mutableMapOf(1 to "one", 2 to "two")
+
+        //multi declare
+
+        for ((f,s) in map){
+            println("f: $f s: $s")
+        }
+
+
+
+
     }
+
+fun japaneseSalary(base : BigDecimal = 50_000.toBigDecimal(), years: Int) : BigDecimal //= TODO("later")
+//base + years * 10_000
+{
+    require(base > BigDecimal.ZERO) {"Base salary can't be negative"}
+    return base + years.toBigDecimal() * 10_000.toBigDecimal()
+}
 
 //fun greeting(first:String, last: String = "Ivanova") = "Hello, $first $last"
 
