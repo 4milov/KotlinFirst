@@ -61,6 +61,10 @@ class TestingMockito {
     fun testVerify(){
         val test = mock(MyClass::class.java)
         `when`(test.getUniqueId()).thenReturn(43)
+
+        //! Создаем переменную хранящую порядок
+        val inOrder = inOrder(test)
+
         test.testing(12)
         test.getUniqueId()
         test.getUniqueId()
@@ -71,6 +75,11 @@ class TestingMockito {
         verify(test, atLeast(1)).getUniqueId() // ф-я getUniqueId() вызывалась хотя бы раз
         verify(test, atMost(10)).getUniqueId()// ф-я getUniqueId() вызывалась не более 10 раз
         verify(test, never()).someMethod("never called") // someMethod никогда не вызывался
+
+        //! Проверяем порядок вызова методов
+        inOrder.verify(test).testing(12)
+        inOrder.verify(test, times(2)).getUniqueId()
+
         verifyNoMoreInteractions(test) // больше ничего не вызывалось
 
     }
@@ -92,7 +101,7 @@ class TestingMockito {
         val spy = spy(list)
         spy.add("hello")
 //        verify(spy).add(stringCaptor.capture()) //IllegalStateException
-        verify(spy).add(helper.capture(stringCaptor))
+        verify (spy).add(helper.capture(stringCaptor))
         assertTrue(stringCaptor.value == "hello")
 
     }
