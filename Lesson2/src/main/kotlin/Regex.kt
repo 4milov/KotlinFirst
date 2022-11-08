@@ -1,22 +1,23 @@
-fun main(){
-    val line = "abc 123 def"
-
-    // val regexp = "\\d{3}"
-    val regexp = """.*\d{3}.*"""
-
-    val pattern = regexp.toRegex()
-
-    println(
-        line.matches(pattern)
-    )
+fun main() {
+//    val line = "abc 123 def"
+//
+//    // val regexp = "\\d{3}"
+//    val regexp = """.*\d{3}.*"""
+//
+//    val pattern = regexp.toRegex()
+//
+//    println(
+//        line.matches(pattern)
+//    )
 
 //    println(date("12 JAN 2020"));
 //    html()
 //    log()
-    passwd()
+//    passwd()
+    countPositivesSumNegatives(arrayOf(0, 2, 3, 0, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14))
 }
 
-fun date(date : String) : Boolean // 12 JAN 2020
+fun date(date: String): Boolean // 12 JAN 2020
 {
     val month = "(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)"
 
@@ -25,23 +26,24 @@ fun date(date : String) : Boolean // 12 JAN 2020
     return date.matches(regexp.toRegex()) //Boolean
 }
 
-fun html(){
+fun html() {
     val html = "<html><head>hello</head><h1>heading></h1><p>Greet!<be></html>"
 
     val regexp = """<[^>/]+>"""
 
     val found = regexp.toRegex().findAll(html) //Find all
 
-    for(result in found){
+    for (result in found) {
         println(result.value)
     }
 }
 
-fun log(){
-    val line = """2020-01-14 12:13:58.374 EET FINE: LOGIN (CASSystemUser): UserID="CASSystemUser", Client="Server client", Origin="193.42.108.58", SessionID="ad77c93f-b1e9-43c8-aa64-aff4630d8473" """
+fun log() {
+    val line =
+        """2020-01-14 12:13:58.374 EET FINE: LOGIN (CASSystemUser): UserID="CASSystemUser", Client="Server client", Origin="193.42.108.58", SessionID="ad77c93f-b1e9-43c8-aa64-aff4630d8473" """
     val regexp = """(\d{4}-\d{2}-\d{2}).+LOGIN \(([^)]+)\)"""
     val found = regexp.toRegex().findAll(line)
-    for(result in found){
+    for (result in found) {
 //        for(group in result.groupValues){
 //            println(group)
 //        }
@@ -50,7 +52,7 @@ fun log(){
     }
 }
 
-fun passwd(){
+fun passwd() {
     val line = """nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false
 root:*:0:0:System Administrator:/var/root:/bin/sh
 daemon:*:1:1:System Services:/var/root:/usr/bin/false
@@ -153,8 +155,37 @@ _reportmemoryexception:*:269:269:ReportMemoryException:/var/db/reportmemoryexcep
 _driverkit:*:270:270:DriverKit:/var/empty:/usr/bin/false""".trimIndent()
 
 
-   for(l  in line.split('\n')){
-       val data = l.split(':')
-       println(data[0])
-   }
+    for (l in line.split('\n')) {
+        val data = l.split(':')
+        println(data[0])
+    }
+}
+
+//fun countPositivesSumNegatives(input: Array<Int>?) : Array<Int> {
+//    if (input == null) return arrayOf()
+//    else {
+//        var pos = 0
+//        var neg = 0
+//        for (i in input) {
+//            when {
+//                i > 0 -> pos = pos + 1
+//                i <= 0 -> neg = neg + i
+//            }
+//        }
+//
+//        return arrayOf(pos, neg)
+//    }
+//}
+fun countPositivesSumNegatives(input : Array<Int>?) : Array<Int> {
+    return if(input == null || input.isEmpty()) {
+        arrayOf()
+    } else{
+        var pos = 0
+        var neg = 0
+        for (i in input) when{
+            i > 0 -> pos = pos + 1
+            i <= 0 -> neg = neg + i
+        }
+        return arrayOf(pos, neg)
+    }
 }
